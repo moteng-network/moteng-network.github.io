@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+*.log
+.env*
+*.pem
+*.key
+*.p8
+*.mobileprovision
+playwright-report/
+test-results/

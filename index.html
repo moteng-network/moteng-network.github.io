@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="北京陌腾网络科技中心（个体工商户）- 软件开发与网络技术服务 / Beijing Moteng Network Technology Center - Software development & network technology services">
+<title>北京陌腾网络科技中心 · Beijing Moteng Network Technology Center</title>
+<script>
+(function () {
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  var lang = saved || ((navigator.language || 'zh').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en');
+  document.documentElement.setAttribute('data-lang', lang);
+})();
+</script>
+<style>
+  :root {
+    --bg: #0b1020;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent-1: #6366f1;
+    --accent-2: #22d3ee;
+    --card: rgba(255, 255, 255, 0.04);
+    --border: rgba(255, 255, 255, 0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    color: var(--text); background: var(--bg);
+    min-height: 100vh; display: flex; flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ── ambient background ── */
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.45; }
+  .orb-1 { width: 520px; height: 520px; left: -140px; top: -120px;
+    background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+    animation: drift-1 18s ease-in-out infinite alternate; }
+  .orb-2 { width: 460px; height: 460px; right: -120px; top: 30%;
+    background: radial-gradient(circle, #0891b2 0%, transparent 70%);
+    animation: drift-2 22s ease-in-out infinite alternate; }
+  .orb-3 { width: 380px; height: 380px; left: 30%; bottom: -160px;
+    background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+    animation: drift-1 26s ease-in-out infinite alternate-reverse; }
+  .grid-overlay {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
+  }
+  @keyframes drift-1 { from { transform: translate(0, 0) scale(1); } to { transform: translate(60px, 40px) scale(1.15); } }
+  @keyframes drift-2 { from { transform: translate(0, 0) scale(1); } to { transform: translate(-50px, -40px) scale(1.1); } }
+
+  /* ── header ── */
+  header {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 20px clamp(20px, 5vw, 48px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+  .brand .dot {
+    width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.8);
+  }
+  .lang-toggle {
+    display: flex; border: 1px solid var(--border); border-radius: 999px;
+    overflow: hidden; background: rgba(255, 255, 255, 0.03); flex-shrink: 0;
+  }
+  .lang-toggle button {
+    border: none; background: transparent; color: var(--muted);
+    padding: 7px 16px; font-size: 13px; cursor: pointer;
+    font-family: inherit; transition: all 0.25s;
+  }
+  .lang-toggle button.active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  }
+
+  /* ── hero ── */
+  main { flex: 1; display: flex; flex-direction: column; justify-content: center;
+    max-width: 860px; width: 100%; margin: 0 auto;
+    padding: clamp(40px, 8vh, 80px) clamp(20px, 5vw, 48px); position: relative; z-index: 1; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 7px 16px; font-size: 13px; color: var(--muted);
+    width: fit-content; margin-bottom: 28px;
+    background: rgba(255, 255, 255, 0.03);
+    animation: rise 0.7s ease both;
+  }
+  .badge .pulse {
+    width: 7px; height: 7px; border-radius: 50%; background: #34d399;
+    box-shadow: 0 0 10px #34d399; animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+  h1 {
+    font-size: clamp(32px, 6.5vw, 58px); font-weight: 700; line-height: 1.2;
+    letter-spacing: 0.5px; margin-bottom: 14px;
+    background: linear-gradient(120deg, #f8fafc 30%, var(--accent-2) 75%, var(--accent-1));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    animation: rise 0.7s 0.08s ease both;
+  }
+  .sub { color: var(--muted); font-size: clamp(15px, 2.5vw, 19px); margin-bottom: 20px;
+    animation: rise 0.7s 0.16s ease both; }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
+    animation: rise 0.7s 0.24s ease both; }
+  .tags span {
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 8px 18px; font-size: 13.5px; color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .tags span:hover { border-color: var(--accent-2); transform: translateY(-2px); }
+
+  /* ── card ── */
+  .card {
+    border: 1px solid var(--border); border-radius: 16px;
+    background: var(--card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: clamp(24px, 4vw, 36px);
+    animation: rise 0.7s 0.32s ease both;
+  }
+  .card p { line-height: 2; color: #cbd5e1; }
+  .contact { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .contact .label { font-size: 13.5px; color: var(--muted); }
+  .contact a {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: #fff; text-decoration: none; font-size: 14.5px;
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 9px 20px; background: rgba(255, 255, 255, 0.04);
+    transition: all 0.25s;
+  }
+  .contact a:hover {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+    transform: translateY(-1px);
+  }
+  .contact a svg { width: 15px; height: 15px; fill: var(--accent-2); }
+
+  footer {
+    position: relative; z-index: 1;
+    text-align: center; color: #64748b; font-size: 13px;
+    padding: 28px 20px 34px;
+  }
+
+  html[data-lang="zh"] [data-en] { display: none; }
+  html[data-lang="en"] [data-zh] { display: none; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .orb-1, .orb-2, .orb-3, .badge .pulse { animation: none; }
+    .badge, h1, .sub, .tags, .card { animation: none; }
+  }
+  @media (max-width: 560px) {
+    .brand span { display: none; }
+    .tags span { padding: 7px 14px; font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<header>
+  <div class="brand">
+    <div class="dot"></div>
+    <span data-zh>陌腾网络</span>
+    <span data-en>Moteng Network</span>
+  </div>
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button type="button" data-set="zh">中文</button>
+    <button type="button" data-set="en">EN</button>
+  </div>
+</header>
+
+<main>
+  <div class="badge">
+    <span class="pulse"></span>
+    <span data-zh>个体工商户 · 2026 年成立</span>
+    <span data-en>Individually Owned Business · Established 2026</span>
+  </div>
+
+  <div data-zh lang="zh-CN">
+    <h1>北京陌腾网络科技中心</h1>
+    <div class="sub">Beijing Moteng Network Technology Center</div>
+    <div class="tags">
+      <span>软件开发</span><span>网络技术服务</span><span>信息技术咨询</span><span>技术转让与推广</span>
+    </div>
+    <div class="card">
+      <p>北京陌腾网络科技中心（个体工商户）是一家从事软件开发与网络技术服务的科技企业，围绕应用软件与网络技术，提供软件开发、网络技术服务、信息技术咨询、技术开发与技术转让等服务。</p>
+      <div class="contact">
+        <span class="label" data-zh>业务合作：</span>
+        <a href="mailto:admin@oh-my-term.cn">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          admin@oh-my-term.cn
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div data-en lang="en">
+    <h1>Beijing Moteng Network Technology Center</h1>
+    <div class="sub">北京陌腾网络科技中心（个体工商户）</div>
+    <div class="tags">
+      <span>Software Development</span><span>Network Services</span><span>IT Consulting</span><span>Technology Transfer</span>
+    </div>
+    <div class="card">
+      <p>Beijing Moteng Network Technology Center (Individually Owned Business) is a technology company specializing in software development and network technology services. We provide application software development, network technology services, IT consulting, and technology development and transfer services.</p>
+      <div class="contact">
+        <span class="label" data-en>Business inquiries:</span>
+        <a href="mailto:admin@oh-my-term.cn">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          admin@oh-my-term.cn
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span data-zh>© 2026 北京陌腾网络科技中心（个体工商户）</span>
+  <span data-en>© 2026 Beijing Moteng Network Technology Center (Individually Owned Business)</span>
+  · oh-my-term.cn
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.lang-toggle button');
+  function cur() { return document.documentElement.getAttribute('data-lang'); }
+  function render() {
+    buttons.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-set') === cur()); });
+    document.documentElement.lang = cur() === 'zh' ? 'zh-CN' : 'en';
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var next = b.getAttribute('data-set');
+      if (next === cur()) return;
+      document.documentElement.setAttribute('data-lang', next);
+      try { localStorage.setItem('lang', next); } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
