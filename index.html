@@ -88,7 +88,7 @@
   }
 
   /* ── hero ── */
-  .hero { position: relative; padding: clamp(56px, 10vh, 110px) 0 clamp(116px, 16vh, 148px); }
+  .hero { position: relative; padding: clamp(56px, 10vh, 110px) 0 clamp(44px, 7vh, 72px); }
   .eyebrow {
     display: flex; align-items: center; gap: 14px;
     font-size: 13px; letter-spacing: 0.22em; color: var(--ink-soft);
@@ -116,21 +116,6 @@
     margin-top: 26px;
     animation: rise 0.7s 0.24s ease both;
   }
-  /* 印章 */
-  .seal {
-    position: absolute; bottom: clamp(-10px, 2vh, 6px); right: clamp(0px, 3vw, 24px);
-    font-family: var(--serif);
-    width: clamp(64px, 9vw, 96px); height: auto;
-    transform: rotate(-6deg);
-    animation: stamp 0.6s 0.55s cubic-bezier(0.34, 1.3, 0.5, 1) both;
-    filter: drop-shadow(1px 2px 0 rgba(33,31,26,0.12));
-  }
-  @keyframes stamp {
-    0%   { opacity: 0; transform: scale(2.1) rotate(-16deg); }
-    55%  { opacity: 1; transform: scale(0.93) rotate(-5deg); }
-    75%  { transform: scale(1.05) rotate(-6.5deg); }
-    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
-  }
   /* ── 产品（目录式索引）── */
   .works { border-top: 1px solid var(--line-strong); padding-bottom: 8px; }
   .works-head {
@@ -144,7 +129,7 @@
   .works-head::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
 
   .work {
-    display: grid; grid-template-columns: 64px minmax(0, 1fr) 44px; gap: clamp(14px, 3vw, 26px);
+    display: grid; grid-template-columns: 52px minmax(0, 1fr) 44px; gap: clamp(14px, 3vw, 26px);
     align-items: center;
     padding: clamp(24px, 4vh, 36px) 6px;
     border-top: 1px solid var(--line);
@@ -156,10 +141,9 @@
   .work:nth-of-type(1) { animation-delay: 0.36s; }
   .work:nth-of-type(2) { animation-delay: 0.44s; }
   .work:nth-of-type(3) { animation-delay: 0.52s; }
-  .work .num {
-    font-family: Georgia, var(--serif); font-style: italic;
-    font-size: 15px; color: var(--cinnabar); letter-spacing: 0.06em;
-    padding-top: 6px; align-self: start;
+  .work .logo {
+    width: 44px; height: 44px; border-radius: 9px;
+    align-self: start; margin-top: 3px; display: block;
   }
   .work h3 {
     font-family: var(--serif);
@@ -236,15 +220,12 @@
 
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
-    .seal { animation: none; }
     .eyebrow, h1, .hero-sub, .hero-intro, .works-head, .work, .about-inner { animation: none; }
     .work:hover h3, .work:hover .arrow { transform: none; }
   }
   @media (max-width: 720px) {
-    .seal { right: 0; width: 64px; }
-    .hero { padding-bottom: clamp(88px, 14vh, 110px); }
-    .work { grid-template-columns: 34px minmax(0, 1fr) 26px; gap: 12px; }
-    .work .num { font-size: 13px; }
+    .work { grid-template-columns: 38px minmax(0, 1fr) 26px; gap: 12px; }
+    .work .logo { width: 30px; height: 30px; border-radius: 6px; margin-top: 4px; }
     .work .arrow { font-size: 19px; }
     header { padding-top: 16px; padding-bottom: 16px; }
   }
@@ -286,19 +267,6 @@
       <span data-en>A small studio building quiet, well-crafted software. We develop apps and network technology services — offline-first, privacy-respecting, and open source where it matters.</span>
     </p>
 
-    <svg class="seal" viewBox="0 0 96 96" aria-hidden="true">
-      <defs>
-        <filter id="seal-edge" x="-10%" y="-10%" width="120%" height="120%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.11 0.13" numOctaves="3" seed="7" result="n"/>
-          <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5"/>
-        </filter>
-      </defs>
-      <g filter="url(#seal-edge)">
-        <rect x="7" y="7" width="82" height="82" rx="11" fill="#b5391e" opacity="0.94"/>
-      </g>
-      <text x="48" y="43" text-anchor="middle" font-size="31" font-weight="700" fill="#f6f2e9" letter-spacing="2">陌</text>
-      <text x="48" y="78" text-anchor="middle" font-size="31" font-weight="700" fill="#f6f2e9" letter-spacing="2">腾</text>
-    </svg>
   </section>
 
   <section class="works">
@@ -314,7 +282,7 @@
     </div>
 
     <a class="work" href="https://feelime.github.io/" target="_blank" rel="noopener">
-      <span class="num">No.01</span>
+      <img class="logo" src="assets/feelime.svg" alt="Feelime logo" width="44" height="44" loading="lazy" decoding="async">
       <div>
         <h3>
           Feelime
@@ -333,7 +301,7 @@
     </a>
 
     <a class="work" href="https://podic.oh-my-term.cn/" target="_blank" rel="noopener">
-      <span class="num">No.02</span>
+      <img class="logo" src="assets/podic.png" alt="Podic logo" width="44" height="44" loading="lazy" decoding="async">
       <div>
         <h3>
           Podic
@@ -352,7 +320,7 @@
     </a>
 
     <a class="work" href="https://scrcpy.oh-my-term.cn/" target="_blank" rel="noopener">
-      <span class="num">No.03</span>
+      <img class="logo" src="assets/scrcpy.svg" alt="Remote scrcpy logo" width="44" height="44" loading="lazy" decoding="async">
       <div>
         <h3>
           Remote · scrcpy
