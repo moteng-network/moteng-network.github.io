@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="北京陌腾网络科技中心（个体工商户）- 软件开发与网络技术服务 / Beijing Moteng Network Technology Center - Software development & network technology services">
+<meta name="description" content="北京陌腾网络科技中心（个体工商户）- 软件开发与网络技术服务。产品：Feelime 输入法、Podic 词典、Remote·scrcpy / Beijing Moteng Network Technology Center - Software development & network technology services. Products: Feelime, Podic, Remote·scrcpy">
 <title>北京陌腾网络科技中心 · Beijing Moteng Network Technology Center</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='9' fill='%23b5391e'/%3E%3Ctext x='32' y='29' text-anchor='middle' font-size='23' font-weight='700' fill='%23f6f2e9' font-family='Songti SC,SimSun,serif'%3E陌%3C/text%3E%3Ctext x='32' y='54' text-anchor='middle' font-size='23' font-weight='700' fill='%23f6f2e9' font-family='Songti SC,SimSun,serif'%3E腾%3C/text%3E%3C/svg%3E">
 <script>
 (function () {
   var saved = null;
@@ -15,221 +16,378 @@
 </script>
 <style>
   :root {
-    --bg: #0b1020;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --accent-1: #6366f1;
-    --accent-2: #22d3ee;
-    --card: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.1);
+    --paper: #f6f2e9;        /* 暖白纸面 */
+    --paper-deep: #efe9dc;   /* 深一度的纸 */
+    --ink: #211f1a;          /* 墨色 */
+    --ink-soft: #55524a;     /* 淡墨 */
+    --muted: #8a8578;        /* 灰墨 */
+    --line: rgba(33, 31, 26, 0.16);
+    --line-strong: rgba(33, 31, 26, 0.42);
+    --cinnabar: #b5391e;     /* 朱砂 */
+    --serif: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", Georgia, "Times New Roman", serif;
+    --sans: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-    color: var(--text); background: var(--bg);
+    font-family: var(--sans);
+    color: var(--ink); background: var(--paper);
     min-height: 100vh; display: flex; flex-direction: column;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 纸面噪点 */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 99; pointer-events: none;
+    opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── ambient background ── */
-  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
-  .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.45; }
-  .orb-1 { width: 520px; height: 520px; left: -140px; top: -120px;
-    background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
-    animation: drift-1 18s ease-in-out infinite alternate; }
-  .orb-2 { width: 460px; height: 460px; right: -120px; top: 30%;
-    background: radial-gradient(circle, #0891b2 0%, transparent 70%);
-    animation: drift-2 22s ease-in-out infinite alternate; }
-  .orb-3 { width: 380px; height: 380px; left: 30%; bottom: -160px;
-    background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-    animation: drift-1 26s ease-in-out infinite alternate-reverse; }
-  .grid-overlay {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
-  }
-  @keyframes drift-1 { from { transform: translate(0, 0) scale(1); } to { transform: translate(60px, 40px) scale(1.15); } }
-  @keyframes drift-2 { from { transform: translate(0, 0) scale(1); } to { transform: translate(-50px, -40px) scale(1.1); } }
-
-  /* ── header ── */
+  /* ── 页眉 ── */
   header {
-    position: relative; z-index: 2;
     display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    padding: 20px clamp(20px, 5vw, 48px);
+    padding: 22px clamp(20px, 6vw, 64px);
+    border-bottom: 1px solid var(--line);
+    position: relative; z-index: 2;
   }
-  .brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
-  .brand .dot {
-    width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.8);
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .brand .mark {
+    width: 26px; height: 26px; flex-shrink: 0; border-radius: 5px;
+    background: var(--cinnabar); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 14px; font-weight: 700;
+    box-shadow: 2px 2px 0 rgba(33,31,26,.14);
   }
-  .lang-toggle {
-    display: flex; border: 1px solid var(--border); border-radius: 999px;
-    overflow: hidden; background: rgba(255, 255, 255, 0.03); flex-shrink: 0;
-  }
+  .brand-name { font-family: var(--serif); font-size: 16.5px; font-weight: 700; letter-spacing: 0.06em; }
+  .lang-toggle { display: flex; gap: 4px; align-items: baseline; }
   .lang-toggle button {
-    border: none; background: transparent; color: var(--muted);
-    padding: 7px 16px; font-size: 13px; cursor: pointer;
-    font-family: inherit; transition: all 0.25s;
+    border: none; background: transparent; cursor: pointer;
+    font-family: inherit; font-size: 13.5px; letter-spacing: 0.05em;
+    color: var(--muted); padding: 6px 9px 5px; position: relative;
+    transition: color 0.25s;
   }
-  .lang-toggle button.active {
-    color: #fff;
-    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  .lang-toggle button::after {
+    content: ""; position: absolute; left: 9px; right: 9px; bottom: 0; height: 2px;
+    background: var(--cinnabar); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lang-toggle button.active { color: var(--ink); }
+  .lang-toggle button.active::after { transform: scaleX(1); }
+
+  main {
+    flex: 1; width: 100%; max-width: 900px; margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 64px); position: relative; z-index: 1;
   }
 
   /* ── hero ── */
-  main { flex: 1; display: flex; flex-direction: column; justify-content: center;
-    max-width: 860px; width: 100%; margin: 0 auto;
-    padding: clamp(40px, 8vh, 80px) clamp(20px, 5vw, 48px); position: relative; z-index: 1; }
-  .badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 7px 16px; font-size: 13px; color: var(--muted);
-    width: fit-content; margin-bottom: 28px;
-    background: rgba(255, 255, 255, 0.03);
+  .hero { position: relative; padding: clamp(56px, 10vh, 110px) 0 clamp(44px, 7vh, 72px); }
+  .eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 13px; letter-spacing: 0.22em; color: var(--ink-soft);
+    margin-bottom: clamp(24px, 4vh, 38px);
     animation: rise 0.7s ease both;
   }
-  .badge .pulse {
-    width: 7px; height: 7px; border-radius: 50%; background: #34d399;
-    box-shadow: 0 0 10px #34d399; animation: pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse { 50% { opacity: 0.4; } }
+  .eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--line-strong); }
   h1 {
-    font-size: clamp(32px, 6.5vw, 58px); font-weight: 700; line-height: 1.2;
-    letter-spacing: 0.5px; margin-bottom: 14px;
-    background: linear-gradient(120deg, #f8fafc 30%, var(--accent-2) 75%, var(--accent-1));
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; color: transparent;
+    font-family: var(--serif);
+    font-size: clamp(36px, 7.2vw, 68px); font-weight: 900;
+    line-height: 1.22; letter-spacing: 0.04em;
+    max-width: 13em;
     animation: rise 0.7s 0.08s ease both;
   }
-  .sub { color: var(--muted); font-size: clamp(15px, 2.5vw, 19px); margin-bottom: 20px;
-    animation: rise 0.7s 0.16s ease both; }
-  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
-    animation: rise 0.7s 0.24s ease both; }
-  .tags span {
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 8px 18px; font-size: 13.5px; color: #cbd5e1;
-    background: rgba(255, 255, 255, 0.03);
-    transition: border-color 0.25s, transform 0.25s;
+  h1 .accent { color: var(--cinnabar); }
+  .hero-sub {
+    font-family: var(--serif);
+    color: var(--ink-soft); font-size: clamp(15px, 2.2vw, 18px);
+    letter-spacing: 0.08em; margin-top: 18px;
+    animation: rise 0.7s 0.16s ease both;
   }
-  .tags span:hover { border-color: var(--accent-2); transform: translateY(-2px); }
+  .hero-intro {
+    max-width: 34em; color: var(--ink-soft);
+    font-size: clamp(14.5px, 2vw, 16px); line-height: 2;
+    margin-top: 26px;
+    animation: rise 0.7s 0.24s ease both;
+  }
+  /* 印章 */
+  .seal {
+    position: absolute; top: clamp(40px, 8vh, 84px); right: clamp(0px, 4vw, 30px);
+    width: clamp(74px, 11vw, 104px); height: auto;
+    transform: rotate(-6deg);
+    animation: stamp 0.6s 0.55s cubic-bezier(0.34, 1.3, 0.5, 1) both;
+    filter: drop-shadow(1px 2px 0 rgba(33,31,26,0.12));
+  }
+  @keyframes stamp {
+    0%   { opacity: 0; transform: scale(2.1) rotate(-16deg); }
+    55%  { opacity: 1; transform: scale(0.93) rotate(-5deg); }
+    75%  { transform: scale(1.05) rotate(-6.5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg); }
+  }
+  /* 竖排装饰 */
+  .vertical-deco {
+    position: absolute; right: clamp(-6px, 1vw, 10px); bottom: 8%;
+    writing-mode: vertical-rl; text-orientation: mixed;
+    font-size: 12.5px; letter-spacing: 0.42em; color: var(--muted);
+    border-left: 1px solid var(--line); padding-left: 14px;
+    animation: rise 0.7s 0.3s ease both;
+  }
 
-  /* ── card ── */
-  .card {
-    border: 1px solid var(--border); border-radius: 16px;
-    background: var(--card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    padding: clamp(24px, 4vw, 36px);
-    animation: rise 0.7s 0.32s ease both;
+  /* ── 产品（目录式索引）── */
+  .works { border-top: 1px solid var(--line-strong); padding-bottom: 8px; }
+  .works-head {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: clamp(26px, 4vh, 40px) 0 10px;
+    animation: rise 0.7s 0.3s ease both;
   }
-  .card p { line-height: 2; color: #cbd5e1; }
-  .contact { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--border); }
-  .contact .label { font-size: 13.5px; color: var(--muted); }
+  .works-head .zh { font-family: var(--serif); font-size: 26px; font-weight: 900; letter-spacing: 0.12em; }
+  .works-head .en { font-size: 12px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+  .works-head::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+  .work {
+    display: grid; grid-template-columns: 64px 1fr 44px; gap: clamp(14px, 3vw, 26px);
+    align-items: center;
+    padding: clamp(24px, 4vh, 36px) 6px;
+    border-top: 1px solid var(--line);
+    text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+    animation: rise 0.7s ease both;
+  }
+  .work:nth-of-type(1) { animation-delay: 0.36s; }
+  .work:nth-of-type(2) { animation-delay: 0.44s; border-top: none; }
+  .work:nth-of-type(3) { animation-delay: 0.52s; }
+  .work:first-of-type { border-top: 1px solid var(--line); }
+  .work:hover { background: rgba(33, 31, 26, 0.035); }
+  .work .num {
+    font-family: Georgia, var(--serif); font-style: italic;
+    font-size: 15px; color: var(--cinnabar); letter-spacing: 0.06em;
+    padding-top: 6px; align-self: start;
+  }
+  .work h2 {
+    font-family: var(--serif);
+    font-size: clamp(23px, 3.4vw, 32px); font-weight: 900; letter-spacing: 0.03em;
+    line-height: 1.3; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    transition: color 0.25s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .work:hover h2 { color: var(--cinnabar); transform: translateX(5px); }
+  .work .tagline {
+    font-size: 14px; font-weight: 400; font-style: italic;
+    font-family: Georgia, var(--serif); color: var(--muted); letter-spacing: 0.04em;
+  }
+  .work p {
+    color: var(--ink-soft); font-size: 14.5px; line-height: 1.95;
+    margin-top: 10px; max-width: 36em;
+  }
+  .work .meta {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+  }
+  .work .meta span {
+    font-size: 11.5px; letter-spacing: 0.1em; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 2px; padding: 3px 10px;
+    transition: border-color 0.25s, color 0.25s;
+  }
+  .work:hover .meta span { border-color: rgba(181, 57, 30, 0.4); }
+  .work .arrow {
+    font-family: Georgia, serif; font-size: 24px; line-height: 1;
+    color: var(--ink); opacity: 0.22; text-align: right;
+    transition: opacity 0.25s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s;
+  }
+  .work:hover .arrow { opacity: 1; transform: translateX(7px); color: var(--cinnabar); }
+
+  /* ── 关于 / 联系 ── */
+  .about { border-top: 1px solid var(--line-strong); margin-top: 4px; }
+  .about-inner {
+    display: grid; grid-template-columns: 1fr; gap: 6px;
+    padding: clamp(28px, 5vh, 44px) 6px clamp(36px, 6vh, 56px);
+    animation: rise 0.7s 0.6s ease both;
+  }
+  .about p { max-width: 40em; color: var(--ink-soft); font-size: 14.5px; line-height: 2.05; }
+  .contact { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 24px; }
+  .contact .label { font-size: 13px; letter-spacing: 0.18em; color: var(--muted); }
   .contact a {
-    display: inline-flex; align-items: center; gap: 8px;
-    color: #fff; text-decoration: none; font-size: 14.5px;
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 9px 20px; background: rgba(255, 255, 255, 0.04);
-    transition: all 0.25s;
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: var(--serif); font-size: 15.5px; letter-spacing: 0.03em;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--line-strong); padding-bottom: 3px;
+    transition: color 0.25s, border-color 0.25s;
   }
-  .contact a:hover {
-    border-color: var(--accent-2);
-    box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
-    transform: translateY(-1px);
-  }
-  .contact a svg { width: 15px; height: 15px; fill: var(--accent-2); }
+  .contact a:hover { color: var(--cinnabar); border-color: var(--cinnabar); }
+  .contact a svg { width: 15px; height: 15px; fill: var(--cinnabar); }
 
   footer {
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+    color: var(--muted); font-size: 12.5px; letter-spacing: 0.05em;
+    padding: 22px clamp(20px, 6vw, 64px) 30px;
     position: relative; z-index: 1;
-    text-align: center; color: #64748b; font-size: 13px;
-    padding: 28px 20px 34px;
   }
+  footer .site { font-family: Georgia, serif; font-style: italic; }
 
   html[data-lang="zh"] [data-en] { display: none; }
   html[data-lang="en"] [data-zh] { display: none; }
 
-  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
-    .orb-1, .orb-2, .orb-3, .badge .pulse { animation: none; }
-    .badge, h1, .sub, .tags, .card { animation: none; }
+    .seal { animation: none; }
+    .eyebrow, h1, .hero-sub, .hero-intro, .vertical-deco, .works-head, .work, .about-inner { animation: none; }
+    .work:hover h2, .work:hover .arrow { transform: none; }
   }
-  @media (max-width: 560px) {
-    .brand span { display: none; }
-    .tags span { padding: 7px 14px; font-size: 12.5px; }
+  @media (max-width: 720px) {
+    .vertical-deco { display: none; }
+    .seal { top: auto; bottom: -8px; right: 0; width: 64px; }
+    .hero { padding-bottom: clamp(64px, 12vh, 90px); }
+    .work { grid-template-columns: 34px 1fr 26px; gap: 12px; }
+    .work .num { font-size: 13px; }
+    .work .arrow { font-size: 19px; }
+    header { padding-top: 16px; padding-bottom: 16px; }
   }
 </style>
 </head>
 <body>
-<div class="bg" aria-hidden="true">
-  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
-  <div class="grid-overlay"></div>
-</div>
 
 <header>
   <div class="brand">
-    <div class="dot"></div>
-    <span data-zh>陌腾网络</span>
-    <span data-en>Moteng Network</span>
+    <div class="mark" aria-hidden="true">陌</div>
+    <div class="brand-name">
+      <span data-zh>陌腾网络</span>
+      <span data-en>Moteng Network</span>
+    </div>
   </div>
-  <div class="lang-toggle" role="group" aria-label="Language">
+  <div class="lang-toggle" role="group" aria-label="Language / 语言">
     <button type="button" data-set="zh">中文</button>
     <button type="button" data-set="en">EN</button>
   </div>
 </header>
 
 <main>
-  <div class="badge">
-    <span class="pulse"></span>
-    <span data-zh>个体工商户 · 2026 年成立</span>
-    <span data-en>Individually Owned Business · Established 2026</span>
-  </div>
-
-  <div data-zh lang="zh-CN">
-    <h1>北京陌腾网络科技中心</h1>
-    <div class="sub">Beijing Moteng Network Technology Center</div>
-    <div class="tags">
-      <span>软件开发</span><span>网络技术服务</span><span>信息技术咨询</span><span>技术转让与推广</span>
+  <section class="hero">
+    <div class="eyebrow">
+      <span data-zh>个体工商户 · 北京 · 二〇二六年</span>
+      <span data-en>Individually Owned · Beijing · Est. 2026</span>
     </div>
-    <div class="card">
-      <p>北京陌腾网络科技中心（个体工商户）是一家从事软件开发与网络技术服务的科技企业，围绕应用软件与网络技术，提供软件开发、网络技术服务、信息技术咨询、技术开发与技术转让等服务。</p>
+
+    <h1>
+      <span data-zh>北京陌腾<span class="accent">网络科技</span>中心</span>
+      <span data-en>Moteng Network<br>Technology <span class="accent">Center</span></span>
+    </h1>
+    <div class="hero-sub">
+      <span data-zh>Beijing Moteng Network Technology Center</span>
+      <span data-en>北京陌腾网络科技中心（个体工商户）</span>
+    </div>
+    <p class="hero-intro">
+      <span data-zh>小团队，做小而美的软件。我们开发应用软件、提供网络技术服务——重视离线可用、用户隐私与开源精神。</span>
+      <span data-en>A small studio building quiet, well-crafted software. We develop apps and network technology services — offline-first, privacy-respecting, and open source where it matters.</span>
+    </p>
+
+    <svg class="seal" viewBox="0 0 96 96" aria-hidden="true">
+      <defs>
+        <filter id="seal-edge" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.11 0.13" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5"/>
+        </filter>
+      </defs>
+      <g filter="url(#seal-edge)">
+        <rect x="7" y="7" width="82" height="82" rx="11" fill="#b5391e" opacity="0.94"/>
+      </g>
+      <text x="48" y="43" text-anchor="middle" font-size="31" font-weight="700" fill="#f6f2e9" font-family="Songti SC, SimSun, serif" letter-spacing="2">陌</text>
+      <text x="48" y="78" text-anchor="middle" font-size="31" font-weight="700" fill="#f6f2e9" font-family="Songti SC, SimSun, serif" letter-spacing="2">腾</text>
+    </svg>
+
+    <div class="vertical-deco" aria-hidden="true">
+      <span data-zh>软件开发 · 网络技术服务 · 信息技术咨询</span>
+      <span data-en>SOFTWARE · NETWORK · CONSULTING</span>
+    </div>
+  </section>
+
+  <section class="works">
+    <div class="works-head">
+      <span class="zh" data-zh>产品</span>
+      <span class="zh" data-en style="font-family: var(--serif); font-size: 26px; font-weight: 900; letter-spacing: 0.06em;">Works</span>
+      <span class="en" data-zh>WORKS · SELECTED</span>
+      <span class="en" data-en>SELECTED PRODUCTS</span>
+    </div>
+
+    <a class="work" href="https://feelime.github.io/" target="_blank" rel="noopener">
+      <span class="num">No.01</span>
+      <div>
+        <h2>
+          Feelime
+          <span class="tagline">
+            <span data-zh>自在输入，数据留在本机</span>
+            <span data-en>Type freely — data stays on-device</span>
+          </span>
+        </h2>
+        <p>
+          <span data-zh>离线优先的 Android 中文输入法。拼音、双拼、九宫格、手写与本地语音识别，基于 librime 引擎；键位、主题、词库皆可深度定制，开源可审计。</span>
+          <span data-en>An offline-first Chinese keyboard for Android. Pinyin, double pinyin, T9, handwriting and on-device voice recognition, powered by librime — deeply customizable and open source.</span>
+        </p>
+        <div class="meta"><span>Android</span><span data-zh>输入法</span><span data-en>Keyboard</span><span>GPL-3.0</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+
+    <a class="work" href="https://podic.oh-my-term.cn/" target="_blank" rel="noopener">
+      <span class="num">No.02</span>
+      <div>
+        <h2>
+          Podic
+          <span class="tagline">
+            <span data-zh>拾字为舟</span>
+            <span data-en>Every word, a small vessel</span>
+          </span>
+        </h2>
+        <p>
+          <span data-zh>开源离线多语言词典，任意语言通往中文。内置英、法、日、俄词典，其余语言由 AI 补全释义；Tatoeba 真实例句，无广告、无账号、无埋点。</span>
+          <span data-en>An open-source offline dictionary: any language, on its way to Chinese. Built-in English, French, Japanese and Russian; AI completes the rest — with real example sentences, no ads, no accounts.</span>
+        </p>
+        <div class="meta"><span>iOS</span><span>Android</span><span data-zh>词典</span><span data-en>Dictionary</span><span data-zh>离线</span><span data-en>Offline</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+
+    <a class="work" href="https://scrcpy.oh-my-term.cn/" target="_blank" rel="noopener">
+      <span class="num">No.03</span>
+      <div>
+        <h2>
+          Remote · scrcpy
+          <span class="tagline">
+            <span data-zh>把另一部 Android，握在手里</span>
+            <span data-en>Hold another Android in your hand</span>
+          </span>
+        </h2>
+        <p>
+          <span data-zh>用 iPhone、iPad 或 Android 设备远程控制另一台 Android：画面、声音与输入实时传输，设备直连无需中转服务器。开源（GPL-3.0）。</span>
+          <span data-en>Control one Android from your iPhone, iPad or another Android — screen, audio and input, over a direct connection with no relay in between. Open source (GPL-3.0).</span>
+        </p>
+        <div class="meta"><span>iOS</span><span>Android</span><span data-zh>远程控制</span><span data-en>Remote Control</span><span>GPL-3.0</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">&#8594;</span>
+    </a>
+  </section>
+
+  <section class="about">
+    <div class="about-inner">
+      <p>
+        <span data-zh>北京陌腾网络科技中心（个体工商户）从事软件开发与网络技术服务，围绕应用软件与网络技术，提供软件开发、信息技术咨询、技术开发与技术转让等服务。</span>
+        <span data-en>Beijing Moteng Network Technology Center (Individually Owned Business) provides software development, network technology services, IT consulting, and technology development and transfer.</span>
+      </p>
       <div class="contact">
-        <span class="label" data-zh>业务合作：</span>
+        <span class="label" data-zh>业务合作</span>
+        <span class="label" data-en>Business inquiries</span>
         <a href="mailto:admin@oh-my-term.cn">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           admin@oh-my-term.cn
         </a>
       </div>
     </div>
-  </div>
-
-  <div data-en lang="en">
-    <h1>Beijing Moteng Network Technology Center</h1>
-    <div class="sub">北京陌腾网络科技中心（个体工商户）</div>
-    <div class="tags">
-      <span>Software Development</span><span>Network Services</span><span>IT Consulting</span><span>Technology Transfer</span>
-    </div>
-    <div class="card">
-      <p>Beijing Moteng Network Technology Center (Individually Owned Business) is a technology company specializing in software development and network technology services. We provide application software development, network technology services, IT consulting, and technology development and transfer services.</p>
-      <div class="contact">
-        <span class="label" data-en>Business inquiries:</span>
-        <a href="mailto:admin@oh-my-term.cn">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          admin@oh-my-term.cn
-        </a>
-      </div>
-    </div>
-  </div>
+  </section>
 </main>
 
 <footer>
-  <span data-zh>© 2026 北京陌腾网络科技中心（个体工商户）</span>
-  <span data-en>© 2026 Beijing Moteng Network Technology Center (Individually Owned Business)</span>
-  · oh-my-term.cn
+  <span>
+    <span data-zh>© 2026 北京陌腾网络科技中心（个体工商户）</span>
+    <span data-en>© 2026 Beijing Moteng Network Technology Center (Individually Owned Business)</span>
+  </span>
+  <span class="site">oh-my-term.cn</span>
 </footer>
 
 <script>
