@@ -131,18 +131,8 @@
     75%  { transform: scale(1.05) rotate(-6.5deg); }
     100% { opacity: 1; transform: scale(1) rotate(-6deg); }
   }
-  /* 竖排装饰（产品区右缘） */
-  .vertical-deco {
-    position: absolute; right: clamp(-6px, 1vw, 6px); top: 56%;
-    writing-mode: vertical-rl; text-orientation: mixed;
-    font-size: 12px; letter-spacing: 0.42em; color: var(--muted);
-    border-left: 1px solid var(--line); padding-left: 12px;
-    pointer-events: none; z-index: 1;
-    animation: fade-in 0.8s 0.3s ease both;
-  }
-
   /* ── 产品（目录式索引）── */
-  .works { position: relative; border-top: 1px solid var(--line-strong); padding-bottom: 8px; }
+  .works { border-top: 1px solid var(--line-strong); padding-bottom: 8px; }
   .works-head {
     display: flex; align-items: baseline; gap: 16px;
     padding: clamp(26px, 4vh, 40px) 0 10px;
@@ -245,14 +235,10 @@
   html[data-lang="en"] [data-zh] { display: none; }
 
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {
     .seal { animation: none; }
-    .eyebrow, h1, .hero-sub, .hero-intro, .vertical-deco, .works-head, .work, .about-inner { animation: none; }
+    .eyebrow, h1, .hero-sub, .hero-intro, .works-head, .work, .about-inner { animation: none; }
     .work:hover h3, .work:hover .arrow { transform: none; }
-  }
-  @media (max-width: 900px) {
-    .vertical-deco { display: none; }
   }
   @media (max-width: 720px) {
     .seal { right: 0; width: 64px; }
@@ -316,10 +302,6 @@
   </section>
 
   <section class="works">
-    <div class="vertical-deco" aria-hidden="true">
-      <span data-zh>软件开发 · 网络技术服务 · 信息技术咨询</span>
-      <span data-en>SOFTWARE · NETWORK · CONSULTING</span>
-    </div>
     <div class="works-head">
       <h2 class="works-title">
         <span data-zh>产品</span>
